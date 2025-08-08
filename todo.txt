@@ -4,5 +4,6 @@ PONTOS MAPEADOS DE ALTERAÇÃO
 2. criar coluna de dias da semana numerico
 3. tratar variavel horario
 4. criar variavel do estado/regiao do adversario
-5. criar variavel da capacidade do estadio. Testar publico/capacidade [%] como target 
-6. criar variavel com dados do inmet
+5. criar variavel da capacidade do estadio. (V)
+6. Testar publico/capacidade [%] como target 
+7. criar variavel com dados do inmet (V)

@@ -1,5 +1,5 @@
-from scraping.scraper import WebScraper
-from scraping.parser import GameParser
+from ingestion.scraper import WebScraper
+from ingestion.parser import GameParser
 import pandas as pd
 
 def main():
