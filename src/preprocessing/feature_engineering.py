@@ -120,6 +120,28 @@ class FeatureEngineer:
             else:
                 self.df.at[i, 'classico'] = 0
         return self
+    
+    def feature_capacidade_estadio(self):
+        
+        capacidade_estadio = [
+            {"Estádio": "Arena do Jacaré", "Capacidade": 19998},
+            {"Estádio": "Parque do Sabiá", "Capacidade": 39900},
+            {"Estádio": "Ipatingão", "Capacidade": 22500},
+            {"Estádio": "Arena do Calçado", "Capacidade": 10000},
+            {"Estádio": "Melão", "Capacidade": 15471},
+            {"Estádio": "Independência", "Capacidade": 23000},
+            {"Estádio": "Mineirão", "Capacidade": 61927},
+            {"Estádio": "Mané Garrincha", "Capacidade": 72788},
+            {"Estádio": "Kléber Andrade", "Capacidade": 21152},
+            {"Estádio": "Inter&Co Stadium", "Capacidade": 25500},
+            {"Estádio": "Arena Pantanal", "Capacidade": 42968},
+            {"Estádio": "Sesc Venda Nova", "Capacidade": 2000},
+            ]
+        
+        self.df['capacidade_estadio'] = self.df['estadio'].map(
+            lambda x: next((item['Capacidade'] for item in capacidade_estadio if item['Estádio'] == x), None))
+        
+        return self
 
 
     def get_df(self):

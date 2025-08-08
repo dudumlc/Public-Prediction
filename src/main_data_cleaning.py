@@ -36,6 +36,7 @@ def main():
         .tratar_info_nao_disponivel('renda_bruta')
         .tratar_renda('renda_bruta')
         .tratar_horario('horario')
+        .ajustar_nome_estadio()
         .ajustar_tipos_colunas(conversoes)
         .get_df()
     )

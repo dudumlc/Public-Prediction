@@ -102,6 +102,10 @@ class DataCleaner:
                     self.df[coluna] = self.df[coluna].astype(tipo)
 
         return self
+    
+    def ajustar_nome_estadio(self,coluna='estadio'):
+        self.df[coluna] = self.df[coluna].replace({"Arena Buser": "Arena do Jacaré"})
+        return self
 
     def get_df(self):
         return self.df

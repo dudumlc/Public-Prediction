@@ -16,6 +16,7 @@ def main():
         .feature_invencibilidade_previa()
         .feature_estreia()
         .feature_classico()
+        .feature_capacidade_estadio()
         .get_df()
     )
     
