@@ -7,3 +7,4 @@ PONTOS MAPEADOS DE ALTERAÇÃO
 5. criar variavel da capacidade do estadio. (V)
 6. Testar publico/capacidade [%] como target 
 7. criar variavel com dados do inmet (V)
+8. tratar os tipos de variaveis da feature engineering

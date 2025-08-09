@@ -21,7 +21,7 @@ def main():
 
     # converte para DataFrame
     df_raw = pd.DataFrame(dados)
-    df_raw.to_parquet('data/raw/df_raw.parquet', index=False, engine='pyarrow')
+    df_raw.to_parquet('data/raw/df_raw_jogos.parquet', index=False, engine='pyarrow')
 
 if __name__ == "__main__":
     main()
