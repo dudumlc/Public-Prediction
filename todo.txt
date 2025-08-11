@@ -1,10 +1,10 @@
 PONTOS MAPEADOS DE ALTERAÇÃO
 
-1. tratar tipos de dados na criação do df_refined
+1. tratar tipos de dados na criação do df_refined (saida da feature engineering)
 2. criar coluna de dias da semana numerico
-3. tratar variavel horario
+3. tratar variavel horario (V)
 4. criar variavel do estado/regiao do adversario
 5. criar variavel da capacidade do estadio. (V)
 6. Testar publico/capacidade [%] como target 
 7. criar variavel com dados do inmet (V)
-8. tratar os tipos de variaveis da feature engineering
+8. processar dados de clima no feature engineering

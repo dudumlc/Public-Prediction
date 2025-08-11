@@ -67,10 +67,11 @@ def clean_climate_data():
         .tratar_divisor_milhar('TEMPERATURA DO PONTO DE ORVALHO (°C)')
         .tratar_decimal('VENTO, VELOCIDADE HORARIA (m/s)')
         .tratar_decimal('PRECIPITAÇÃO TOTAL, HORÁRIO (mm)')
+        .tratar_nulos("all",0)
         .ajustar_tipos_colunas(conversoes_)
         .get_df()
         )
-    
+
     # Salva o DataFrame limpo
     df_trusted_clima.to_parquet('data/trusted/df_trusted_clima.parquet', engine='pyarrow', index=False)
 

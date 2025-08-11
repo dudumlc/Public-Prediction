@@ -113,11 +113,11 @@ class DataCleaner:
     
     def tratar_nulos(self, coluna,valor_substituto):
         if coluna == "all":
-            self.df = self.df.replace(None, valor_substituto)
+            self.df = self.df.replace('None', valor_substituto)
             self.df = self.df.fillna(valor_substituto)
             return self
         else:
-            self.df[coluna] = self.df[coluna].replace(None, valor_substituto)
+            self.df[coluna] = self.df[coluna].replace('None', valor_substituto)
             self.df[coluna] = self.df[coluna].fillna(valor_substituto)
             return self
 
