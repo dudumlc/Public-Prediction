@@ -1,12 +1,14 @@
+from ingestion.loader import load_excel
 from preprocessing.data_cleaning import DataCleaner
 import pandas as pd
 
-def main():
+
+def clean_games_data():
     # Carrega o DataFrame original
-    df_raw = pd.read_parquet('data/raw/df_raw.parquet',use_pandas_metadata=False, engine="pyarrow")
+    df_raw_jogos = pd.read_parquet('data/raw/df_raw_jogos.parquet',use_pandas_metadata=False, engine="pyarrow")
 
     # Cria uma instância do DataCleaner
-    cleaner = DataCleaner(df_raw)
+    cleaner = DataCleaner(df_raw_jogos)
 
     # Define as conversões de tipos desejadas
     conversoes = {
@@ -26,7 +28,7 @@ def main():
         }
 
     # Limpeza dos dados
-    df_trusted = (
+    df_trusted_jogos = (
         cleaner
         .remove_virgulas('dia_semana')
         .formatar_coluna_data()
@@ -42,7 +44,40 @@ def main():
     )
 
     # Salva o DataFrame limpo
-    df_trusted.to_parquet('data/trusted/df_trusted.parquet', engine='pyarrow', index=False)
+    df_trusted_jogos.to_parquet('data/trusted/df_trusted_jogos.parquet', engine='pyarrow', index=False)
+
+
+def clean_climate_data():
+    df_raw_clima = pd.read_parquet('data/raw/df_raw_clima.parquet',use_pandas_metadata=False, engine="pyarrow")
+
+    conversoes_ = {
+            'Data': 'datetime64[ns]',
+            'Hora UTC': 'string',    
+            'PRECIPITAÇÃO TOTAL, HORÁRIO (mm)': 'float',
+            'TEMPERATURA DO AR - BULBO SECO, HORARIA (°C)': 'float',
+            'TEMPERATURA DO PONTO DE ORVALHO (°C)': 'float',
+            'VENTO, VELOCIDADE HORARIA (m/s)': 'float',
+        }
+
+    cleaner = DataCleaner(df_raw_clima)
+
+    df_trusted_clima = (
+        cleaner
+        .tratar_divisor_milhar('TEMPERATURA DO AR - BULBO SECO, HORARIA (°C)')
+        .tratar_divisor_milhar('TEMPERATURA DO PONTO DE ORVALHO (°C)')
+        .tratar_decimal('VENTO, VELOCIDADE HORARIA (m/s)')
+        .tratar_decimal('PRECIPITAÇÃO TOTAL, HORÁRIO (mm)')
+        .ajustar_tipos_colunas(conversoes_)
+        .get_df()
+        )
+    
+    # Salva o DataFrame limpo
+    df_trusted_clima.to_parquet('data/trusted/df_trusted_clima.parquet', engine='pyarrow', index=False)
+
+
+def main():
+    clean_games_data()
+    clean_climate_data()
 
 if __name__ == "__main__":
     main()

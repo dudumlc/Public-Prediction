@@ -106,6 +106,20 @@ class DataCleaner:
     def ajustar_nome_estadio(self,coluna='estadio'):
         self.df[coluna] = self.df[coluna].replace({"Arena Buser": "Arena do Jacaré"})
         return self
+    
+    def tratar_decimal(self,coluna):
+        self.df[coluna] = self.df[coluna].apply(lambda x: str(x).replace(',', '0.') if str(x).startswith(',') else str(x).replace(',', '.'))
+        return self
+    
+    def tratar_nulos(self, coluna,valor_substituto):
+        if coluna == "all":
+            self.df = self.df.replace(None, valor_substituto)
+            self.df = self.df.fillna(valor_substituto)
+            return self
+        else:
+            self.df[coluna] = self.df[coluna].replace(None, valor_substituto)
+            self.df[coluna] = self.df[coluna].fillna(valor_substituto)
+            return self
 
     def get_df(self):
         return self.df

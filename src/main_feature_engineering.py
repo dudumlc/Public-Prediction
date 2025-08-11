@@ -3,7 +3,7 @@ import pandas as pd
 
 def main():
     # Carrega o DataFrame original
-    df_trusted = pd.read_parquet('data/trusted/df_trusted.parquet',use_pandas_metadata=False, engine="pyarrow")
+    df_trusted = pd.read_parquet('data/trusted/df_trusted_jogos.parquet',use_pandas_metadata=False, engine="pyarrow")
 
         # Limpeza dos dados
     df_refined = (
@@ -20,7 +20,7 @@ def main():
         .get_df()
     )
     
-    df_refined.to_parquet('data/refined/df_refined.parquet', index=False, engine='pyarrow')
+    df_refined.to_parquet('data/refined/df_refined_jogos.parquet', index=False, engine='pyarrow')
 
 if __name__ == "__main__":
     main()

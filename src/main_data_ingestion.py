@@ -1,8 +1,9 @@
 from ingestion.scraper import WebScraper
 from ingestion.parser import GameParser
+from ingestion.loader import load_excel
 import pandas as pd
 
-def main():
+def scrape_games_data():
     scraper = WebScraper(2011, 2025)
 
     dados = []
@@ -20,8 +21,16 @@ def main():
             dados.append(parser.parse_all())
 
     # converte para DataFrame
-    df_raw = pd.DataFrame(dados)
-    df_raw.to_parquet('data/raw/df_raw_jogos.parquet', index=False, engine='pyarrow')
+    df_raw_jogos = pd.DataFrame(dados)
+    df_raw_jogos.to_parquet('data/raw/df_raw_jogos.parquet', index=False, engine='pyarrow')
+
+def load_climate_data():
+    df_raw_clima = load_excel('data/raw/climate_data')
+    df_raw_clima.to_parquet('data/raw/df_raw_clima.parquet', index=False, engine='pyarrow')
+
+def main():
+    # scrape_games_data()
+    load_climate_data()
 
 if __name__ == "__main__":
     main()
