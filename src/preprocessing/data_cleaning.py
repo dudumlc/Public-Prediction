@@ -24,13 +24,13 @@ class DataCleaner:
 
         self.df['mes'] = self.df['mes'].map(meses_para_numeros)
 
-        self.df['data'] = (
+        self.df['data_formatada'] = (
             self.df['dia'].astype(str) + "/" +
             self.df['mes'].astype(str) + "/" +
             self.df['ano'].astype(str)
         )
 
-        self.df['data_formatada'] = pd.to_datetime(self.df['data'], format='%d/%m/%Y', errors='coerce')
+        #self.df['data_formatada'] = pd.to_datetime(self.df['data'], format='%d/%m/%Y', errors='coerce')
 
         self.df = self.df.drop('data', axis=1)
         return self
@@ -97,7 +97,8 @@ class DataCleaner:
         for coluna, tipo in conversoes.items():
             if coluna in self.df.columns:
                 if tipo == 'datetime64[ns]':
-                    self.df[coluna] = pd.to_datetime(self.df[coluna], errors='coerce')
+                    self.df[coluna] = self.df[coluna].str.replace('-','/')
+                    self.df[coluna] = pd.to_datetime(self.df[coluna], errors='coerce', format=None)
                 else:
                     self.df[coluna] = self.df[coluna].astype(tipo)
 
@@ -114,11 +115,11 @@ class DataCleaner:
     def tratar_nulos(self, coluna,valor_substituto):
         if coluna == "all":
             self.df = self.df.replace('None', valor_substituto)
-            self.df = self.df.fillna(valor_substituto)
+            #self.df = self.df.fillna(valor_substituto)
             return self
         else:
             self.df[coluna] = self.df[coluna].replace('None', valor_substituto)
-            self.df[coluna] = self.df[coluna].fillna(valor_substituto)
+            #self.df[coluna] = self.df[coluna].fillna(None)
             return self
 
     def get_df(self):

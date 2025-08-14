@@ -45,10 +45,13 @@ def clean_games_data():
 
     # Salva o DataFrame limpo
     df_trusted_jogos.to_parquet('data/trusted/df_trusted_jogos.parquet', engine='pyarrow', index=False)
+    print('[DATA CLEANING] Dataset de jogos limpos com sucesso. ✅')
 
 
 def clean_climate_data():
     df_raw_clima = pd.read_parquet('data/raw/df_raw_clima.parquet',use_pandas_metadata=False, engine="pyarrow")
+
+    cleaner = DataCleaner(df_raw_clima)
 
     conversoes_ = {
             'Data': 'datetime64[ns]',
@@ -59,25 +62,23 @@ def clean_climate_data():
             'VENTO, VELOCIDADE HORARIA (m/s)': 'float',
         }
 
-    cleaner = DataCleaner(df_raw_clima)
-
     df_trusted_clima = (
         cleaner
         .tratar_divisor_milhar('TEMPERATURA DO AR - BULBO SECO, HORARIA (°C)')
         .tratar_divisor_milhar('TEMPERATURA DO PONTO DE ORVALHO (°C)')
         .tratar_decimal('VENTO, VELOCIDADE HORARIA (m/s)')
         .tratar_decimal('PRECIPITAÇÃO TOTAL, HORÁRIO (mm)')
-        .tratar_nulos("all",0)
+        .tratar_nulos("all",None)
         .ajustar_tipos_colunas(conversoes_)
         .get_df()
         )
 
     # Salva o DataFrame limpo
     df_trusted_clima.to_parquet('data/trusted/df_trusted_clima.parquet', engine='pyarrow', index=False)
-
+    print('[DATA CLEANING] Dataset de clima limpos com sucesso. ✅')
 
 def main():
-    clean_games_data()
+    #clean_games_data()
     clean_climate_data()
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@ class FeatureEngineer:
     def __init__(self, df):
         self.df = df.copy()  # Evita alterar o original
 
-    def feature_nome_campeonato(self, coluna_origem='campeonato', coluna_destino='campeonato_ajustado'):
+    def feature_nome_campeonato(self, coluna_origem='campeonato', coluna_destino='campeonato_ajustado') -> str:
         mapa = {
             'Mineiro': 'Campeonato Mineiro',
             'Libertadores': 'Libertadores',
@@ -28,14 +28,12 @@ class FeatureEngineer:
         self.df[coluna_destino] = self.df[coluna_origem].apply(identificar_campeonato)
         return self
     
-    def feature_gols_jogo(self, coluna_gols_mandante='gols_mandante', coluna_gols_visitante='gols_visitante', coluna_gols_total='gols_total'):
+    def feature_gols_jogo(self, coluna_gols_mandante='gols_mandante', coluna_gols_visitante='gols_visitante', coluna_gols_total='gols_total') -> int:
         
         self.df[coluna_gols_visitante] = self.df['placar'].str.split(' × ',expand=True).loc[:,0]
         self.df[coluna_gols_mandante] = self.df['placar'].str.split(' × ',expand=True).loc[:,1]
         self.df[coluna_gols_total] = self.df[coluna_gols_mandante].astype(int) + self.df[coluna_gols_visitante].astype(int)
         return self
-    
-    import numpy as np
 
     def feature_pontos_alcancados(self):
         condicoes = [
@@ -141,6 +139,37 @@ class FeatureEngineer:
         self.df['capacidade_estadio'] = self.df['estadio'].map(
             lambda x: next((item['Capacidade'] for item in capacidade_estadio if item['Estádio'] == x), None))
         
+        return self
+    
+    def feature_ocupacao_estadio(self):
+        self.df['ocupacao_estadio'] =  self.df['publico_pagante'] / self.df['capacidade_estadio'] 
+        return self
+    
+    def feature_dia_semana_numerico(self):
+        
+        ordem_dias_semana = {
+        'domingo':7,
+        'sábado':6,
+        'quarta-feira':3,
+        'terça-feira':2,
+        'quinta-feira':4,
+        'sexta-feira':5,
+        'segunda-feira':1
+        }
+
+        self.df['dia_semana_int'] = self.df['dia_semana'].map(ordem_dias_semana)
+        return self 
+
+    def ajustar_tipos_colunas(self, conversoes):
+
+        for coluna, tipo in conversoes.items():
+            if coluna in self.df.columns:
+                if tipo == 'datetime64[ns]':
+                    self.df[coluna] = self.df[coluna].str.replace('-','/')
+                    self.df[coluna] = pd.to_datetime(self.df[coluna], errors='coerce', format=None)
+                else:
+                    self.df[coluna] = self.df[coluna].astype(tipo)
+
         return self
 
 

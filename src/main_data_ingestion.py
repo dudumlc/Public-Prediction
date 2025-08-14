@@ -23,13 +23,15 @@ def scrape_games_data():
     # converte para DataFrame
     df_raw_jogos = pd.DataFrame(dados)
     df_raw_jogos.to_parquet('data/raw/df_raw_jogos.parquet', index=False, engine='pyarrow')
+    print('[DATA INGESTION] Dados de jogos extraídos e dataset criado com sucesso. ✅')
 
 def load_climate_data():
     df_raw_clima = load_excel('data/raw/climate_data')
     df_raw_clima.to_parquet('data/raw/df_raw_clima.parquet', index=False, engine='pyarrow')
+    print('[DATA INGESTION] Dataset de clima carregados e empilhados com sucesso. ✅')
 
 def main():
-    # scrape_games_data()
+    scrape_games_data()
     load_climate_data()
 
 if __name__ == "__main__":

@@ -1,10 +1,15 @@
 PONTOS MAPEADOS DE ALTERAÇÃO
 
-1. tratar tipos de dados na criação do df_refined (saida da feature engineering)
-2. criar coluna de dias da semana numerico
-3. tratar variavel horario (V)
-4. criar variavel do estado/regiao do adversario
-5. criar variavel da capacidade do estadio. (V)
-6. Testar publico/capacidade [%] como target 
-7. criar variavel com dados do inmet (V)
-8. processar dados de clima no feature engineering
+COMMIT 13/08/2025
+
+(V) 1. tratar tipos de dados na criação do df_refined (saida da feature engineering)
+(V) 2. criar coluna de dias da semana numerico
+(V) 3. tratar variavel horario 
+    4. criar variavel do estado/regiao do adversario
+(V) 5. criar variavel da capacidade do estadio. 
+(V) 6. Criar publico/capacidade [%] para testar como target 
+(V) 7. criar variavel com dados do inmet 
+    8. processar dados de clima no feature engineering
+(V) 9. PRIORIDADE: tratar data cleaning dos dados de clima, pois a conversão para o tipo datetime da coluna data está apagando os registros de 2011-2018.
+       Obs.: ao explorar, percebi que isso ocorre por conta do formato de data das colunas . 2011-2018 = ano-mes-dia | 2019 em diante = ano/mes/dia
+       OBS. DA RESOLUÇÃO: alterei a classe DataCleaner.ajustar_tipo_colunas() na formatação de data, alterando todo '-' por '/'. Isso acabou gerando um ponto de atenção na limpeza dos jogos. Ela tem formato dd/m/yyyy enquanto clima tem yyyy/mm/dd. Eu não declarei formato na conversão. Isso não gera erro, mas pode gerar. 
