@@ -6,6 +6,8 @@ class FeatureEngineer:
     def __init__(self, df):
         self.df = df.copy()  # Evita alterar o original
 
+    ## COLUNAS DE DADOS DE JOGOS ##
+
     def feature_nome_campeonato(self, coluna_origem='campeonato', coluna_destino='campeonato_ajustado') -> str:
         mapa = {
             'Mineiro': 'Campeonato Mineiro',
@@ -172,6 +174,17 @@ class FeatureEngineer:
 
         return self
 
+    ## COLUNAS DE DADOS DE CLIMA ##
+
+    def feature_lag_clima(self, coluna):
+        self.df[f'{coluna}_lag1'] = self.df[coluna].shift(1)
+        self.df[f'{coluna}_lag2'] = self.df[coluna].shift(2)
+        self.df[f'{coluna}_lag3'] = self.df[coluna].shift(3)
+        self.df[f'{coluna}_lag4'] = self.df[coluna].shift(4)
+        self.df[f'{coluna}_lag5'] = self.df[coluna].shift(5)
+        self.df[f'{coluna}_lag6'] = self.df[coluna].shift(6)
+        self.df[f'{coluna}_lag7'] = self.df[coluna].shift(7)
+        return self
 
     def get_df(self):
         return self.df

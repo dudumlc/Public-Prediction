@@ -42,8 +42,43 @@ def feature_engineering_jogos():
     df_refined_jogos.to_parquet('data/refined/df_refined_jogos.parquet', index=False, engine='pyarrow')
     print('[FEATURE ENGINEERING] Novas features de jogos criadas com sucesso.✅ ')
 
+def feature_engineering_clima():
+    # Carrega o DataFrame original
+    df_trusted_clima = pd.read_parquet('data/trusted/df_trusted_clima.parquet',use_pandas_metadata=False, engine="pyarrow")
+
+    conversoes ={
+    'campeonato_ajustado':'string',
+    'gols_visitante':'Int64',
+    'gols_mandante':'Int64',
+    'gols_total':'Int64',
+    'pontos_alcancados':'Int64',
+    'resultado':'string',
+    'aproveitamento_temporada_previo':'float',
+    'jogos_invencibilidade_previo':'Int64',
+    'estreia':'boolean',
+    'classico':'boolean',
+    'capacidade_estadio':'Int64',
+    'ocupacao_estadio':'float',
+    'dia_semana_int':'Int64'
+    }
+
+        # Limpeza dos dados
+    df_refined_clima = (
+        FeatureEngineer(df_trusted_clima)
+        .feature_lag_clima('precipitacao_total')        
+        .feature_lag_clima('temp_media_bulbo_seco')
+        .feature_lag_clima('temp_media_ponto_orvalho')
+        .feature_lag_clima('velocidade_media_vento')
+        #.ajustar_tipos_colunas(conversoes)
+        .get_df()
+    )
+    
+    df_refined_clima.to_parquet('data/refined/df_refined_clima.parquet', index=False, engine='pyarrow')
+    print('[FEATURE ENGINEERING] Novas features de clima criadas com sucesso.✅ ')    
+
 def main():
     feature_engineering_jogos()
+    feature_engineering_clima()
 
 if __name__ == "__main__":
     main()

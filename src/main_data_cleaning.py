@@ -72,13 +72,20 @@ def clean_climate_data():
         .ajustar_tipos_colunas(conversoes_)
         .get_df()
         )
+    
+    df_trusted_clima = df_trusted_clima.sort_values(by='Data').reset_index(drop=True)
+
+    df_trusted_clima = df_trusted_clima.rename(columns={'PRECIPITAÇÃO TOTAL, HORÁRIO (mm)':'precipitacao_total',
+                                                        'TEMPERATURA DO AR - BULBO SECO, HORARIA (°C)':'temp_media_bulbo_seco',
+                                                        'TEMPERATURA DO PONTO DE ORVALHO (°C)':'temp_media_ponto_orvalho',
+                                                        'VENTO, VELOCIDADE HORARIA (m/s)':'velocidade_media_vento',})
 
     # Salva o DataFrame limpo
     df_trusted_clima.to_parquet('data/trusted/df_trusted_clima.parquet', engine='pyarrow', index=False)
     print('[DATA CLEANING] Dataset de clima limpos com sucesso. ✅')
 
 def main():
-    #clean_games_data()
+    clean_games_data()
     clean_climate_data()
 
 if __name__ == "__main__":
