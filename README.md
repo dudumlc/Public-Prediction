@@ -1,18 +1,4 @@
 
-
-
-
-- ✅ WEB SCRAPING
-- ✅ LIMPEZA DOS DADOS
-- ✅ FEATURE ENGINEERING
-- ⚙️ EDA: EM DESENVOLVIMENTO...
-- 🕔 FEATURE SELECTION
-- 🕔 TREINAMENTO E SELEÇÃO DE MODELOS
-🕔 VALIDAÇÃO E TUNAGEM DE HIPERPARÂMETROS
-.
-🕔 TESTE
-- 🕔 DEPLOY DO MODELO
-
 # PROJETO DE PREVISÃO DE PÚBLICO EM JOGOS DO CRUZEIRO
 
 ## Sobre o Projeto
@@ -41,17 +27,16 @@ O resultado desse projeto pode contribuir para uma melhor gestão do clube, vist
 
 A estrutura de pastas deste repositório foi organizada para manter o projeto limpo e modular. Cada diretório principal contém um arquivo `README.md` que detalha seu propósito específico.
 
-- `data/`: Contém os datasets brutos, processados e externos.
-- `docs/`: Documentação do projeto, relatórios e apresentações.
+- `data/`: Contém os datasets brutos, processados e o dataset analítico usado para a modelagem. Estão organizados na medallion architecture, ou seja, camada raw, refined, trusted e machine_learning.
 - `notebooks/`: Notebooks Jupyter para exploração de dados, modelagem e análise.
 - `src/`: Código fonte, scripts e módulos reutilizáveis.
-- `results/`: Resultados finais, como submissões, visualizações e modelos treinados.
+- 
 
 ## Como Começar
 
 1.  **Clone o repositório:**
     ```bash
-    git clone git@github.com:DatathONS2025/grupo13.git
+    git clone git@github.com:dudumlc/Public-Prediction.git
     
     ```
 
