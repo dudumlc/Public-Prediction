@@ -30,7 +30,6 @@ A estrutura de pastas deste repositório foi organizada para manter o projeto li
 - `data/`: Contém os datasets brutos, processados e o dataset analítico usado para a modelagem. Estão organizados na medallion architecture, ou seja, camada raw, refined, trusted e machine_learning.
 - `notebooks/`: Notebooks Jupyter para exploração de dados, modelagem e análise.
 - `src/`: Código fonte, scripts e módulos reutilizáveis.
-- 
 
 ## Como Começar
 
